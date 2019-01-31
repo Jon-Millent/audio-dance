@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div>
+
+
+  <canvas id="canvas" style="background-color: #000" width="1024" height="600"></canvas>
+
+  <button id="play">play</button>
+  <button id="stop">stop</button>
+  <button id="render">render</button>
+
+</div>
+
+<script src="../dist/audio-dance.min.js"></script>
+<script>
+
+  window.onload = function () {
+
+    let dancer = new AudioDance({
+      src: './2.mp3',
+      fftSize: 1024
+    })
+
+    document.getElementById('play').onclick = function () {
+      dancer.Howl.play()
+
+      console.log(dancer.Howl)
+    }
+
+    document.getElementById('stop').onclick = function () {
+      dancer.Howl.stop()
+    }
+
+
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let cwidth = canvas.width;
+    let cheight = canvas.height;
+    let gap = 2; //方块的间距
+
+    let gradient = ctx.createLinearGradient(0, 0, 0, cheight);
+    gradient.addColorStop(1, '#00ff00');
+    gradient.addColorStop(0.8, '#ffff00');
+    gradient.addColorStop(0, '#ff0000');
+    ctx.fillStyle = gradient;//填充
+
+
+    function render() {
+      let array = dancer.getDanceData()
+
+
+      // console.log(array)
+
+      ctx.clearRect(0, 0, cwidth, cheight);
+      for (let i = 0; i < array.length; i++) {
+        let value = array[i];
+
+        let h = ( value / 255 ) * cheight
+
+        ctx.fillRect(i * (2+gap) , (cheight - h), 2, h);
+      }
+
+      requestAnimationFrame(render);
+    }
+
+
+    document.getElementById('render').onclick = function () {
+      render();
+    }
+
+
+  }
+
+</script>
+</body>
+</html>
