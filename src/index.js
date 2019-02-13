@@ -1,5 +1,12 @@
-import SAudio from './core/SAudio'
+import AudioDance from './core/SAudio'
+import StudioDance from './core/SDance'
 
-window.AudioDance = SAudio
+if(window) {
+  window.AudioDance = AudioDance
+  window.StudioDance = StudioDance
+}
 
-export default SAudio
+export {
+  AudioDance,
+  StudioDance
+}

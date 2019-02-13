@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+    body {
+      background-color: #000;
+      overflow: hidden;
+    }
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+  </style>
+</head>
+<body>
+
+<div>
+  <button id="play">play</button>
+  <button id="stop">stop</button>
+  <div id="box"></div>
+</div>
+
+<script src="../dist/audio-dance.min.js"></script>
+<script>
+
+  window.onload = function () {
+
+    let dancer = new AudioDance({
+      src: './3.mp3',
+      fftSize: 1024
+    })
+
+    let sDance = new StudioDance()
+
+    let canPlay = true
+
+    let box = document.getElementById('box')
+
+    document.getElementById('play').onclick = function () {
+      dancer.Howl.play()
+      canPlay = true
+      render()
+    }
+
+    document.getElementById('stop').onclick = function () {
+      dancer.Howl.stop()
+      canPlay = false
+    }
+
+
+    function render (){
+      let percent = sDance.getPercent(dancer.getDanceData())
+      box.style.transform = `scale(${percent / 4})`
+      canPlay && requestAnimationFrame(render)
+    }
+
+
+
+  }
+
+</script>
+</body>
+</html>
