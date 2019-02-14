@@ -3,11 +3,14 @@ import Value from './value'
 
 class SDance {
 
-  constructor(danceData) {
-
+  constructor(SAudio) {
+    this.SAudio = SAudio
   }
 
-  getPercent(danceData){
+  getPercent(){
+
+    let danceData = this.SAudio.getDanceData()
+
     let size = danceData.length * Value.byte
 
     let nowSize = 0
@@ -17,6 +20,10 @@ class SDance {
     })
 
     return (nowSize / size * 100).toFixed(4)
+
+  }
+
+  getFormatData(dataLength){
 
   }
 

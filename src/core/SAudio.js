@@ -1,5 +1,7 @@
 import {Howl, Howler} from 'howler';
 
+import StudioDance from './SDance'
+
 class SAudio {
   constructor(inputConfig) {
     this.audioCtx = null
@@ -20,6 +22,8 @@ class SAudio {
     this.inputConfig = Object.assign(this.normalConfig, inputConfig)
 
     this.initAudio()
+
+    this.StudioDance = new StudioDance(this)
   }
 
 

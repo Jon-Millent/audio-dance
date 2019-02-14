@@ -41,8 +41,6 @@
       fftSize: 1024
     })
 
-    let sDance = new StudioDance()
-
     let canPlay = true
 
     let box = document.getElementById('box')
@@ -60,7 +58,7 @@
 
 
     function render (){
-      let percent = sDance.getPercent(dancer.getDanceData())
+      let percent = dancer.StudioDance.getPercent()
       box.style.transform = `scale(${percent / 4})`
       canPlay && requestAnimationFrame(render)
     }
